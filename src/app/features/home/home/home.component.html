@@ -1,0 +1,20 @@
+<div class="container d-flex flex-column justify-content-center align-items-center vh-100">
+  <div class="card p-4 shadow w-50 mb-4">
+    <form [formGroup]="homeForm" (ngSubmit)="onSubmit()">
+      <div class="form-group mb-3">
+        <label for="publicKey">Public Key:</label>
+        <input id="publicKey" formControlName="publicKey" type="text" class="form-control" />
+      </div>
+      <div class="form-group mb-3">
+        <label for="privateKey">Private Key:</label>
+        <input id="privateKey" formControlName="privateKey" type="password" class="form-control" />
+      </div>
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary">Generate Hash</button>
+      </div>
+    </form>
+  </div>
+  <div class="text-center">
+    <button class="btn btn-primary btn-custom" [routerLink]="['/home', 'series']">Go to Series</button>
+  </div>
+</div>
