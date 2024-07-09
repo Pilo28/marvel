@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.service';
 import { MarvelService } from './services/marvel.service';
+import { NotificationService } from './services/notification.service';
 
 @NgModule({
   declarations: [],
@@ -11,6 +12,7 @@ import { MarvelService } from './services/marvel.service';
   ],
   providers: [
     MarvelService,
+    NotificationService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 })

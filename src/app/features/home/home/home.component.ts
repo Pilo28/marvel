@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import md5 from 'md5';
 
 @Component({
@@ -11,18 +11,20 @@ export class HomeComponent {
 
   constructor(private fb: FormBuilder) {
     this.homeForm = this.fb.group({
-      publicKey: [''],
-      privateKey: [''],
+      publicKey: ['',[Validators.required, Validators.minLength(6)]],
+      privateKey: ['', [Validators.required, Validators.minLength(6)]],
       timestamp: [Date.now()]
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
+    if (this.homeForm.valid) {
     const { publicKey, privateKey, timestamp } = this.homeForm.value;
     const hash = md5(timestamp + privateKey + publicKey);
     localStorage.setItem('authHash', hash);
     localStorage.setItem('publicKey', publicKey);
     localStorage.setItem('timestamp', timestamp.toString());
     alert('Hash generado y guardado en el storage');
+  }
   }
 }

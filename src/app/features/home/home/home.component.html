@@ -3,14 +3,20 @@
     <form [formGroup]="homeForm" (ngSubmit)="onSubmit()">
       <div class="form-group mb-3">
         <label for="publicKey">Public Key:</label>
-        <input id="publicKey" formControlName="publicKey" type="text" class="form-control" />
+        <input id="publicKey" formControlName="publicKey" type="text" class="form-control" [ngClass]="{'is-invalid': homeForm.get('publicKey')?.invalid && homeForm.get('publicKey')?.touched}" />
+        <div *ngIf="homeForm.get('publicKey')?.invalid && homeForm.get('publicKey')?.touched" class="invalid-feedback">
+          Public Key is required and must be at least 6 characters.
+        </div>
       </div>
       <div class="form-group mb-3">
         <label for="privateKey">Private Key:</label>
-        <input id="privateKey" formControlName="privateKey" type="password" class="form-control" />
+        <input id="privateKey" formControlName="privateKey" type="password" class="form-control" [ngClass]="{'is-invalid': homeForm.get('privateKey')?.invalid && homeForm.get('privateKey')?.touched}" />
+        <div *ngIf="homeForm.get('privateKey')?.invalid && homeForm.get('privateKey')?.touched" class="invalid-feedback">
+          Private Key is required and must be at least 6 characters.
+        </div>
       </div>
       <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-primary">Generate Hash</button>
+        <button type="submit" class="btn btn-primary" [disabled]="homeForm.invalid">Generate Hash</button>
       </div>
     </form>
   </div>
