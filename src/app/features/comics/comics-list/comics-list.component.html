@@ -1,2 +1,8 @@
-<app-list [items]="comics" type="comics"></app-list>
-
+<div *ngIf="errorMessage; else comicsList">
+    <p class="error">{{ errorMessage }}</p>
+</div>
+  
+<ng-template #comicsList>
+    <app-list [items]="comics" type="comics"></app-list>
+</ng-template>
+  

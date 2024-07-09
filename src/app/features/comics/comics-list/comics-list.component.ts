@@ -10,13 +10,21 @@ import { Comic } from '../../../core/models/interfaces/comic.model';
 export class ComicsListComponent implements OnInit {
   comics: Comic[] = [];
   seriesId: string = '';
+  errorMessage: string = '';
 
   constructor(private route: ActivatedRoute, private marvelService: MarvelService) { }
 
   ngOnInit() {
     this.seriesId = this.route.snapshot.paramMap.get('id')!;
-    this.marvelService.getComics(this.seriesId).subscribe(data => {
-      this.comics = data.data.results;
+    this.loadComics();
+  }
+  loadComics(): void {
+    this.marvelService.getComics(this.seriesId).subscribe({
+      next: (data) => {
+        this.comics = data.data.results;
+        this.errorMessage = ''; 
+      },
+      error: (err) => this.errorMessage = err.message
     });
   }
 }

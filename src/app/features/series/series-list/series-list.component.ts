@@ -8,12 +8,18 @@ import { Series } from '../../../core/models/interfaces/series.model';
 })
 export class SeriesListComponent implements OnInit {
   series: Series[] = [];
+  errorMessage: string = '';
 
   constructor(private marvelService: MarvelService) { }
 
   ngOnInit() {
-    this.marvelService.getSeries().subscribe(data => {
-      this.series = data.data.results;
+    this.loadSeries();
+  }
+
+  loadSeries(): void {
+    this.marvelService.getSeries().subscribe({
+      next: (response) => this.series = response.data.results,
+      error: (err) => this.errorMessage = err.message
     });
   }
 }

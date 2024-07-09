@@ -1,21 +1,25 @@
-<div class="container d-flex justify-content-center align-items-center mt-5">
-  <div class="card p-4 shadow w-50">
-    <form [formGroup]="comicForm">
-      <div class="form-group mb-3">
-        <label for="title" class="form-label">Title:</label>
-        <input id="title" formControlName="title" type="text" class="form-control" readonly />
-      </div>
-      <div class="form-group mb-3">
-        <label for="description" class="form-label">Description:</label>
-        <textarea id="description" formControlName="description" class="form-control" readonly></textarea>
-      </div>
-    </form>
+<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+<div *ngIf="!errorMessage">
+  <div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card p-4 shadow w-50">
+      <form [formGroup]="comicForm">
+        <div class="form-group mb-3">
+          <label for="title" class="form-label">Title:</label>
+          <input id="title" formControlName="title" type="text" class="form-control" readonly />
+        </div>
+        <div class="form-group mb-3">
+          <label for="description" class="form-label">Description:</label>
+          <textarea id="description" formControlName="description" class="form-control" readonly></textarea>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
-<div class="text-center mt-5" *ngIf="comic && comic.thumbnail">
-  <label for="thumbnail" class="form-label"></label>
-  <img [src]="comic.thumbnail.path + '.' + comic.thumbnail.extension" class="img-fluid rounded" alt="{{ comic.title }}" id="thumbnail" />
-</div>
-<div class="text-center mt-3">
-  <button type="button" class="btn btn-secondary" appBackButton>Back</button>
+  <div class="text-center mt-5" *ngIf="comic && comic.thumbnail">
+    <label for="thumbnail" class="form-label"></label>
+    <img [src]="comic.thumbnail.path + '.' + comic.thumbnail.extension" class="img-fluid rounded" alt="{{ comic.title }}" id="thumbnail" />
+  </div>
+  <div class="text-center mt-3">
+    <button type="button" class="btn btn-secondary" appBackButton>Back</button>
+  </div>
 </div>

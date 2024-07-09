@@ -6,11 +6,14 @@ import { Comic } from '../../../core/models/interfaces/comic.model';
 
 @Component({
   selector: 'app-comic-detail',
-  templateUrl: './comic-detail.component.html'
+  templateUrl: './comic-detail.component.html',
+  styleUrl: './comic-detail.component.scss'
 })
+
 export class ComicDetailComponent implements OnInit {
   comicForm: FormGroup;
   comic: Comic | null = null;
+  errorMessage: string = '';
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private marvelService: MarvelService) {
     this.comicForm = this.fb.group({
@@ -20,21 +23,20 @@ export class ComicDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    const comicId = this.route.snapshot.paramMap.get('id'); 
-    if (comicId) {
-      this.marvelService.getComic(comicId).subscribe(data => {
-        this.comic = data.data.results[0]; 
-        if (this.comic) {
-          this.updateForm(this.comic); 
-        }
-      });
-    }
+    const comicId = this.route.snapshot.paramMap.get('id') ?? ''; 
+    this.loadComic(comicId);
   }
-
-  private updateForm(comic: Comic) {
-    this.comicForm.patchValue({
-      title: comic.title,
-      description: comic.description
+  loadComic(comicId: string): void {
+    this.marvelService.getComic(comicId).subscribe({
+      next: (data) => {
+        this.comic = data.data.results[0];
+        this.comicForm.patchValue({
+          title: this.comic.title,
+          description: this.comic.description
+        });
+        this.errorMessage = ''; 
+      },
+      error: (err) => this.errorMessage = err.message
     });
   }
 }
