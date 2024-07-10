@@ -28,16 +28,16 @@ export interface Comic {
   textObjects: TextObject[];
   resourceURI: string;
   urls: Url[];
-  series: SeriesSummary;
+  series?: SeriesSummary;
   variants: ComicSummary[];
   collections: ComicSummary[];
   collectedIssues: ComicSummary[];
   dates: ComicDate[];
   prices: ComicPrice[];
-  thumbnail: Image;
+  thumbnail?: Image;
   images: Image[];
-  creators: CreatorList;
-  characters: CharacterList;
-  stories: StoryList;
-  events: EventList;
+  creators?: CreatorList;
+  characters?: CharacterList;
+  stories?: StoryList;
+  events?: EventList;
 }

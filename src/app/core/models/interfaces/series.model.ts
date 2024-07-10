@@ -13,6 +13,6 @@ export interface Series {
   endYear: number;
   rating: string;
   modified: string;
-  thumbnail: Image;
-  comics: ComicList;
+  thumbnail?: Image;
+  comics?: ComicList;
 }
